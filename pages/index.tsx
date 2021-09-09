@@ -8,7 +8,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Paper } from "@material-ui/core";
-
+import axios from "axios";
+import Link from 'next/link'
 
 
 const Home: React.FC = () => {
@@ -18,8 +19,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const couponList = async () => {
-      const couponList = await fetch(process.env.NEXT_PUBLIC_FETCH_COUPON_URL);  
-      const data = await couponList.json();
+      const { data }= await axios.get(process.env.NEXT_PUBLIC_FETCH_COUPON_URL);
       setCouponInfo(data)
       const selectOptions = data.map((coupon) => {
         
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     };
     couponList()
 
-  },[couponInfo])
+  },[])
 
   return (
     <>
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
       </Head>
       <main>
         <h1>クーポンの一覧</h1>
-
+        <Link href='/post'><a>クーポンの新規登録ページ</a></Link>
         <Select options={couponTitles} placeholder={'クーポンのタイトル'} onChange={(e) => {
           setCouponTile(e.value)
         }} />
