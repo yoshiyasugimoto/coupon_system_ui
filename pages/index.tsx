@@ -42,7 +42,7 @@ const Home: React.FC = () => {
 			<main>
 				<h1>クーポンの一覧</h1>
 				<Link href="/post">
-					<a>クーポンの新規登録ページ</a>
+					<a className="Post-Page-Link">クーポンの新規登録ページ</a>
 				</Link>
 				<Select
 					options={couponTitles}

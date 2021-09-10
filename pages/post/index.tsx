@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Post: React.FC = () => {
@@ -38,7 +39,11 @@ const Post: React.FC = () => {
 						placeholder="200文字以内"
 					></textarea>
 				</div>
-				<input type="submit" className="Form-Btn" value="登録する" />
+				<Link href="/">
+					<a type="submit" className="Form-Btn">
+						登録する
+					</a>
+				</Link>
 			</div>
 		</>
 	);
