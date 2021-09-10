@@ -1,7 +1,41 @@
+import React, { useState } from "react";
 import Link from "next/link";
-import React from "react";
+import axios from "axios";
 
 const Post: React.FC = () => {
+	const [couponTitle, setCouponTile] = useState("");
+	const [couponImg, setCouponImg] = useState<string | ArrayBuffer>("");
+	const [qrCodeImg, setQrCodeImg] = useState<string | ArrayBuffer>("");
+	const [couponDescription, setCouponDescription] = useState("");
+
+	const converBase64 = (e) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload = function () {
+			if (e.target.name === "couponImg") {
+				setCouponImg(reader.result);
+			} else if (e.target.name === "qrCodeImg") {
+				setQrCodeImg(reader.result);
+			}
+		};
+	};
+
+	const handleChange = (e) => {
+		if (e.target.name === "title") {
+			setCouponTile(e.target.value);
+		} else if (e.target.type === "file") {
+			converBase64(e);
+		} else if (e.target.name === "couponDescription") {
+			setCouponDescription(e.target.value);
+		}
+	};
+
+	const postCoupon = async () => {
+		if (couponTitle && couponImg && qrCodeImg && couponDescription) {
+		} else {
+			console.log("blank");
+		}
+	};
 	return (
 		<>
 			<h1>クーポンの新規登録</h1>
@@ -12,22 +46,35 @@ const Post: React.FC = () => {
 						クーポンのタイトル
 					</p>
 					<input
+						name="title"
 						type="text"
+						accept="image/*"
 						className="Form-Item-Input"
-						placeholder="クーポン1"
+						placeholder="例)クーポン1"
+						onChange={handleChange}
 					/>
 				</div>
 				<div className="Form-Item">
 					<p className="Form-Item-Label">
 						<span className="Form-Item-Label-Required">必須</span>クーポン画像
 					</p>
-					<input type="file" className="Form-File-Input" />
+					<input
+						name="couponImg"
+						type="file"
+						className="Form-File-Input"
+						onChange={handleChange}
+					/>
 				</div>
 				<div className="Form-Item">
 					<p className="Form-Item-Label">
 						<span className="Form-Item-Label-Required">必須</span>QRコード画像
 					</p>
-					<input type="file" className="Form-File-Input" />
+					<input
+						name="qrCodeImg"
+						type="file"
+						className="Form-File-Input"
+						onChange={handleChange}
+					/>
 				</div>
 				<div className="Form-Item">
 					<p className="Form-Item-Label isMsg">
@@ -35,12 +82,14 @@ const Post: React.FC = () => {
 						クーポンの詳細
 					</p>
 					<textarea
+						name="couponDescription"
 						className="Form-Item-Textarea"
 						placeholder="200文字以内"
+						onChange={handleChange}
 					></textarea>
 				</div>
-				<Link href="/">
-					<a type="submit" className="Form-Btn">
+				<Link href="">
+					<a type="submit" className="Form-Btn" onClick={postCoupon}>
 						登録する
 					</a>
 				</Link>
