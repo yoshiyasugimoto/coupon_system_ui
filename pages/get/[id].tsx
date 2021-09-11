@@ -10,7 +10,6 @@ const Get: React.FC = () => {
 		const getCouponData = async () => {
 			const { data } = await axios.get(URL);
 			data["title"] = decodeURIComponent(data["title"]);
-			console.log(data);
 			setCouponInfo(data);
 		};
 		getCouponData();
