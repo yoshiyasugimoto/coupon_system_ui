@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
+const POST_URL = process.env.NEXT_PUBLIC_POST_COUPON_URL;
+
 const Post: React.FC = () => {
 	const [couponTitle, setCouponTile] = useState("");
 	const [couponImg, setCouponImg] = useState<string | ArrayBuffer>("");
@@ -32,8 +34,18 @@ const Post: React.FC = () => {
 
 	const postCoupon = async () => {
 		if (couponTitle && couponImg && qrCodeImg && couponDescription) {
+			const body = {
+				couponImg: couponImg,
+				qrCodeImg: qrCodeImg,
+				couponTitle: couponTitle,
+				couponDescription: couponDescription,
+			};
+			const res = await axios.post(POST_URL, body);
+			console.log(res);
+			return true;
 		} else {
 			console.log("blank");
+			return false;
 		}
 	};
 	return (
@@ -88,7 +100,7 @@ const Post: React.FC = () => {
 						onChange={handleChange}
 					></textarea>
 				</div>
-				<Link href="">
+				<Link href="/">
 					<a type="submit" className="Form-Btn" onClick={postCoupon}>
 						登録する
 					</a>
