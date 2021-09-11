@@ -74,8 +74,11 @@ const Home: React.FC = () => {
 							{couponInfo.map((item) => (
 								<TableRow key={item.id}>
 									<TableCell component="th" scope="row">
-										{item.id}
+										<Link href={`/get/${item.id}`}>
+											<a>{item.id}</a>
+										</Link>
 									</TableCell>
+
 									<TableCell>{item["title"]}</TableCell>
 									<TableCell>{item["description"]}</TableCell>
 								</TableRow>
