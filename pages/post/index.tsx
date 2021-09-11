@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-const POST_URL = process.env.NEXT_PUBLIC_POST_COUPON_URL;
+const POST_URL = process.env.NEXT_PUBLIC_POST_COUPON_URL_LOCAL;
 
 const Post: React.FC = () => {
 	const [couponTitle, setCouponTile] = useState("");

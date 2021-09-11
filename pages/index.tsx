@@ -12,16 +12,25 @@ import axios from "axios";
 import Link from "next/link";
 
 const Home: React.FC = () => {
-	const [couponTitle, setCouponTile] = useState("");
+	const [couponId, setCouponId] = useState("");
 	const [couponInfo, setCouponInfo] = useState([]);
 	const [couponTitles, setCouponTitles] = useState([]);
 
 	useEffect(() => {
 		const couponList = async () => {
 			const { data } = await axios.get(
-				process.env.NEXT_PUBLIC_FETCH_COUPON_URL
+				process.env.NEXT_PUBLIC_FETCH_COUPON_URL_LOCAL
 			);
-			setCouponInfo(data);
+
+			const filterCouponTilesData = couponInfo.filter((coupon) => {
+				if (coupon["id"] === couponId) {
+					return coupon;
+				}
+			});
+
+			setCouponInfo(
+				filterCouponTilesData.length === 0 ? data : filterCouponTilesData
+			);
 			const selectOptions = data.map((coupon) => {
 				return {
 					label: coupon["title"],
@@ -31,7 +40,7 @@ const Home: React.FC = () => {
 			setCouponTitles(selectOptions);
 		};
 		couponList();
-	}, []);
+	}, [couponId]);
 
 	return (
 		<>
@@ -48,7 +57,7 @@ const Home: React.FC = () => {
 					options={couponTitles}
 					placeholder={"クーポンのタイトル"}
 					onChange={(e) => {
-						setCouponTile(e.value);
+						setCouponId(e.value);
 					}}
 				/>
 
