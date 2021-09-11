@@ -1,14 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Get: React.FC = () => {
 	const [couponInfo, setCouponInfo] = useState({});
+
+	const router = useRouter();
+
 	useEffect(() => {
-		const URL = `${process.env.NEXT_PUBLIC_GET_COUPON_URL_LOCAL}/0000028/クーポン0000028`;
+		const URL = `${process.env.NEXT_PUBLIC_FETCH_COUPON_URL}/${router.query.id}/${router.query.title}`;
+
 		const getCouponData = async () => {
 			const { data } = await axios.get(URL);
+			console.log(data);
 			data["title"] = decodeURIComponent(data["title"]);
 			setCouponInfo(data);
 		};

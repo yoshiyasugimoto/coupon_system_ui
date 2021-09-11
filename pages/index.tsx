@@ -10,16 +10,18 @@ import TableRow from "@material-ui/core/TableRow";
 import { Paper } from "@material-ui/core";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Home: React.FC = () => {
 	const [couponId, setCouponId] = useState("");
 	const [couponInfo, setCouponInfo] = useState([]);
 	const [couponTitles, setCouponTitles] = useState([]);
+	const router = useRouter();
 
 	useEffect(() => {
 		const couponList = async () => {
 			const { data } = await axios.get(
-				process.env.NEXT_PUBLIC_FETCH_COUPON_URL_LOCAL
+				process.env.NEXT_PUBLIC_FETCH_COUPON_URL
 			);
 
 			const filterCouponTilesData = couponInfo.filter((coupon) => {
@@ -74,9 +76,16 @@ const Home: React.FC = () => {
 							{couponInfo.map((item) => (
 								<TableRow key={item.id}>
 									<TableCell component="th" scope="row">
-										<Link href={`/get/${item.id}`}>
-											<a>{item.id}</a>
-										</Link>
+										<a
+											onClick={() => {
+												router.push({
+													pathname: `/get/${item.id}`,
+													query: { id: item.id, title: item.title },
+												});
+											}}
+										>
+											{item.id}
+										</a>
 									</TableCell>
 
 									<TableCell>{item["title"]}</TableCell>
