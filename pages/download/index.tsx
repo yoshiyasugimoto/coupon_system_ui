@@ -7,9 +7,7 @@ const Get: React.FC = () => {
 
 	useEffect(() => {
 		const getDownloadFiles = async () => {
-			const { data } = await axios.get(
-				process.env.NEXT_PUBLIC_BUCKET_LIST_LOCAL
-			);
+			const { data } = await axios.get(process.env.NEXT_PUBLIC_BUCKET_LIST);
 			console.log(data);
 			setDownloadFiles(data);
 		};
@@ -19,7 +17,7 @@ const Get: React.FC = () => {
 	const handleDownloadCsv = async (file) => {
 		console.log(file);
 		const { data } = await axios.get(
-			`${process.env.NEXT_PUBLIC_DOWNLOAD_CSV_LOCAL}/${file}`
+			`${process.env.NEXT_PUBLIC_DOWNLOAD_CSV}/${file}`
 		);
 		console.log(data);
 		const csvBuffer = Buffer.from(data, "base64");
