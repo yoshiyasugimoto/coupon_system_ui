@@ -122,3 +122,22 @@ img {
 	color: #fff;
 	font-size: 20px;
 }
+
+.Flex {
+	display: flex;
+}
+
+.Select {
+	border-radius: 6px;
+	padding-top: 5px;
+	margin: auto;
+	text-align: center;
+	width: 280px;
+	display: block;
+	font-size: 20px;
+}
+
+.Form-Item-Download {
+	color: rgb(25, 0, 255);
+	cursor: pointer;
+}

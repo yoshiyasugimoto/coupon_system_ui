@@ -52,16 +52,22 @@ const Home: React.FC = () => {
 			</Head>
 			<main>
 				<h1>クーポンの一覧</h1>
-				<Link href="/post">
-					<a className="Post-Page-Link">クーポンの新規登録ページ</a>
-				</Link>
-				<Select
-					options={couponTitles}
-					placeholder={"クーポンのタイトル"}
-					onChange={(e) => {
-						setCouponId(e.value);
-					}}
-				/>
+				<div className="Flex">
+					<Select
+						className="Select"
+						options={couponTitles}
+						placeholder={"クーポンのタイトル"}
+						onChange={(e) => {
+							setCouponId(e.value);
+						}}
+					/>
+					<Link href="/post">
+						<a className="Post-Page-Link">クーポンの新規登録ページ</a>
+					</Link>
+					<Link href="/download">
+						<a className="Post-Page-Link">顧客位置情報収集のページ</a>
+					</Link>
+				</div>
 
 				<TableContainer component={Paper} style={{ marginBottom: 30 }}>
 					<Table className="cityRentMarkePrice" aria-label="simple table">
